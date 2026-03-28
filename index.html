@@ -3,284 +3,625 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BRMail.shop - Seu E-mail Temporário Profissional</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<title>BRMail.shop - Seu E-mail Temporário</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  
+
   :root {
-    --bg-main: #FFFFFF; 
-    --bg-sub: #F9FAFB; 
-    --border: #E5E7EB; 
-    --text-main: #111827; 
-    --text-sub: #6B7280; 
-    --accent: #00f0ff; 
-    --accent-dark: #00c9d6; 
-    --error: #EF4444; 
-    --inbox-width: 320px; 
+    --bg-main: #FFFFFF;
+    --bg-sub: #F9FAFB;
+    --border: #E5E7EB;
+    --text-main: #111827;
+    --text-sub: #6B7280;
+    --accent: #00f0ff;
+    --accent-dark: #00c9d6;
+    --error: #EF4444;
+    --inbox-width: 320px;
   }
 
   .dark-theme {
-    --bg-main: #0A0F14; 
-    --bg-sub: #111820; 
-    --border: #1C2333; 
-    --text-main: #F3F4F6; 
-    --text-sub: #9CA3AF; 
-    --accent: #00f0ff; 
-    --accent-dark: #00c9d6; 
+    --bg-main: #0A0F14;
+    --bg-sub: #111820;
+    --border: #1C2333;
+    --text-main: #F3F4F6;
+    --text-sub: #9CA3AF;
+    --accent: #00f0ff;
+    --accent-dark: #00c9d6;
   }
 
-  body { font-family: 'Inter', sans-serif; background: var(--bg-main); color: var(--text-main); -webkit-font-smoothing: antialiased; transition: background-color 0.3s ease, color 0.3s ease; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-main);
+    color: var(--text-main);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+  }
 
-  nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; background: var(--bg-main); border-bottom: 1px solid var(--border); }
-  .logo { font-weight: 700; font-size: 20px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
-  .logo-icon { width: 30px; height: 30px; background: var(--accent); color: #000; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
-  
+  /* NAV */
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px; height: 70px;
+    background: var(--bg-main);
+    border-bottom: 1px solid var(--border);
+    position: sticky; top: 0; z-index: 100;
+  }
+
+  .logo {
+    font-weight: 700; font-size: 20px; color: var(--text-main);
+    display: flex; align-items: center; gap: 8px;
+  }
+
+  .logo-icon {
+    width: 30px; height: 30px; background: var(--accent); color: #000;
+    border-radius: 6px; display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 14px;
+  }
+
   .nav-utility { display: flex; align-items: center; gap: 16px; }
-  .theme-toggle { background: transparent; border: 1px solid var(--border); color: var(--text-main); font-size: 14px; padding: 6px 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; transition: 0.2s; }
-  .theme-toggle:hover { background: var(--bg-sub); }
-  .status-dot { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); }
-  .dot { width: 7px; height: 7px; border-radius: 50%; background: #10B981; } 
 
-  #hero-section { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 40px 20px; }
-  .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.05); border-radius: 100px; padding: 6px 16px; font-size: 12px; font-weight: 500; color: var(--text-main); margin-bottom: 24px; }
-  .dark-theme .badge { background: rgba(255,255,255,0.05); }
-  h1 { font-size: clamp(30px, 5vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px; color: var(--text-main); }
+  .theme-toggle {
+    background: transparent; border: 1px solid var(--border);
+    color: var(--text-main); font-size: 13px; padding: 6px 14px;
+    border-radius: 6px; cursor: pointer; display: flex; align-items: center;
+    gap: 6px; font-weight: 500; transition: 0.2s; font-family: 'Inter', sans-serif;
+  }
+  .theme-toggle:hover { background: var(--bg-sub); }
+
+  .status-dot { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); }
+  .dot { width: 7px; height: 7px; border-radius: 50%; background: #10B981; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+
+  /* HERO */
+  #hero-section {
+    display: flex; flex-direction: column; align-items: center;
+    justify-content: center; min-height: calc(100vh - 70px);
+    text-align: center; padding: 40px 20px;
+  }
+
+  .badge {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(0,240,255,0.08); border: 1px solid rgba(0,240,255,0.2);
+    border-radius: 100px; padding: 6px 16px; font-size: 12px;
+    font-weight: 500; color: var(--accent-dark); margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: clamp(30px, 5vw, 52px); font-weight: 800;
+    line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px;
+    color: var(--text-main);
+  }
   h1 span { color: var(--accent-dark); }
-  .subtitle { font-size: 16px; color: var(--text-sub); max-width: 500px; line-height: 1.6; margin-bottom: 40px; }
-  
-  #setup-card { background: var(--bg-main); border: 1px solid var(--border); border-radius: 12px; padding: 40px; width: 100%; max-width: 480px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03); }
-  .card-label { font-size: 11px; color: var(--text-sub); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; margin-bottom: 24px; }
-  input { width: 100%; background: var(--bg-main); border: 1px solid #D1D5DB; border-radius: 8px; padding: 14px; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text-main); outline: none; transition: 0.1s; margin-bottom: 12px; }
-  .dark-theme input { border-color: var(--border); }
-  input:focus { border-color: var(--accent-dark); box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1); }
-  .btn { width: 100%; padding: 14px; border: none; border-radius: 8px; background: var(--accent); color: #000; font-family: 'Inter', sans-serif; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s; margin-top: 16px; }
-  .btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
-  .btn-sm { padding: 10px 18px; font-size: 12px; width: auto; margin-top: 0; }
-  .btn-danger { background: transparent; color: var(--error); border: 1px solid #FECACA; }
-  .dark-theme .btn-danger { border-color: rgba(239, 68, 68, 0.3); }
-  .btn-danger:hover { background: rgba(239, 68, 68, 0.1); }
+
+  .subtitle {
+    font-size: 16px; color: var(--text-sub); max-width: 500px;
+    line-height: 1.6; margin-bottom: 40px;
+  }
+
+  /* SETUP CARD */
+  #setup-card {
+    background: var(--bg-main); border: 1px solid var(--border);
+    border-radius: 16px; padding: 40px; width: 100%; max-width: 440px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .dark-theme #setup-card {
+    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
+  }
+
+  .card-label {
+    font-size: 11px; color: var(--text-sub); letter-spacing: 1.5px;
+    text-transform: uppercase; font-weight: 600; margin-bottom: 24px;
+  }
+
+  input[type="email"], input[type="password"], input[type="text"] {
+    width: 100%; background: var(--bg-sub); border: 1px solid var(--border);
+    border-radius: 8px; padding: 13px 16px;
+    font-family: 'Inter', sans-serif; font-size: 14px; color: var(--text-main);
+    outline: none; transition: 0.15s; margin-bottom: 12px;
+  }
+  input:focus {
+    border-color: var(--accent-dark);
+    box-shadow: 0 0 0 3px rgba(0,240,255,0.12);
+    background: var(--bg-main);
+  }
+
+  .btn {
+    width: 100%; padding: 14px; border: none; border-radius: 8px;
+    background: var(--accent); color: #000;
+    font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px;
+    cursor: pointer; transition: 0.2s; margin-top: 8px;
+    letter-spacing: 0.3px;
+  }
+  .btn:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,240,255,0.3); }
+  .btn:active { transform: translateY(0); }
+  .btn-sm { padding: 9px 18px; font-size: 12px; width: auto; margin-top: 0; }
+  .btn-danger {
+    background: transparent; color: var(--error);
+    border: 1px solid rgba(239,68,68,0.3);
+  }
+  .btn-danger:hover { background: rgba(239,68,68,0.08); box-shadow: none; transform: none; }
+
   #msg-erro { color: var(--error); font-size: 13px; margin-top: 12px; display: none; }
 
-  #app { display: none; max-width: 1200px; margin: 40px auto; padding: 0 20px; gap: 24px; }
-  /* AQUI ESTAVA O BUG: Faltava garantir que os filhos diretos do #app usassem o Grid corretamente */
+  /* APP */
+  #app { display: none; max-width: 1200px; margin: 32px auto; padding: 0 24px; gap: 20px; }
   #app.show { display: grid; grid-template-columns: var(--inbox-width) 1fr; align-items: start; }
-  
-  .top-bar-clean { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 0px; background: var(--bg-main); }
-  .email-badge { background: var(--bg-sub); border: 1px solid var(--border); border-radius: 6px; padding: 10px 16px; font-size: 14px; color: var(--text-main); display: flex; align-items: center; gap: 8px; cursor: pointer; }
 
-  .inbox-panel, .email-view { background: var(--bg-main); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02); height: 600px; }
-  
-  .panel-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; background: var(--bg-sub); }
-  .panel-title { font-size: 14px; font-weight: 600; color: var(--text-main); }
-  .count-badge { background: rgba(0,0,0,0.05); color: var(--text-sub); border-radius: 100px; padding: 2px 8px; font-size: 11px; font-weight: 600; margin-left: 8px; }
-  .dark-theme .count-badge { background: rgba(255,255,255,0.05); }
-  
-  .mail-list { flex: 1; overflow-y: auto; }
-  .mail-item { padding: 18px 24px; border-bottom: 1px solid var(--border); cursor: pointer; transition: 0.2s; }
-  .mail-item:hover { background: rgba(0,0,0,0.02); }
-  .dark-theme .mail-item:hover { background: rgba(255,255,255,0.02); }
-  .mail-item.active { background: rgba(0,0,0,0.05); border-left: 3px solid var(--accent); }
-  .dark-theme .mail-item.active { background: rgba(255,255,255,0.05); }
-  
-  .mail-from { font-size: 14px; font-weight: 600; color: var(--text-main); margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .mail-subject { font-size: 13px; color: var(--text-sub); margin-bottom: 6px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .empty-inbox, .no-email-selected { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: var(--text-sub); font-size: 13px; padding: 60px; text-align: center; }
-  .empty-icon { font-size: 48px; opacity: 0.5; }
+  .top-bar-clean {
+    grid-column: 1 / -1;
+    display: flex; align-items: center; justify-content: space-between;
+    border: 1px solid var(--border); border-radius: 12px;
+    padding: 16px 24px; background: var(--bg-main);
+  }
 
-  .email-view-header { padding: 24px 30px; border-bottom: 1px solid var(--border); background: var(--bg-main); }
-  .email-subject-title { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 14px; }
-  .email-meta { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--text-sub); }
-  
-  /* FUNDO DO E-MAIL AGORA ACOMPANHA O TEMA ESCURO */
-  .email-body { flex: 1; background: var(--bg-sub); padding: 30px; overflow-y: auto; }
-  #mail-iframe { width: 100%; height: 100%; min-height: 400px; border: none; background: transparent; }
+  .email-badge {
+    background: var(--bg-sub); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 16px; font-size: 14px;
+    color: var(--accent-dark); display: flex; align-items: center;
+    gap: 8px; cursor: pointer; font-weight: 500; transition: 0.2s;
+  }
+  .email-badge:hover { border-color: var(--accent-dark); background: rgba(0,240,255,0.04); }
 
-  .refresh-btn { background: transparent; border: none; color: var(--text-sub); cursor: pointer; font-size: 13px; }
+  /* PANELS */
+  .inbox-panel, .email-view {
+    background: var(--bg-main); border: 1px solid var(--border);
+    border-radius: 12px; display: flex; flex-direction: column;
+    overflow: hidden; height: 620px;
+  }
+
+  .panel-header {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--bg-sub); flex-shrink: 0;
+  }
+
+  .panel-title { font-size: 13px; font-weight: 600; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
+
+  .count-badge {
+    background: var(--accent); color: #000;
+    border-radius: 100px; padding: 1px 8px;
+    font-size: 11px; font-weight: 700;
+  }
+
+  /* MAIL LIST */
+  .mail-list { flex: 1; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
+  .mail-item {
+    padding: 16px 20px; border-bottom: 1px solid var(--border);
+    cursor: pointer; transition: background 0.15s;
+  }
+  .mail-item:hover { background: rgba(0,240,255,0.03); }
+  .mail-item.active {
+    background: rgba(0,240,255,0.06);
+    border-left: 3px solid var(--accent);
+  }
+  .mail-item.unread .mail-from { color: var(--text-main); font-weight: 700; }
+
+  .mail-from {
+    font-size: 13px; font-weight: 500; color: var(--text-main);
+    margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  .unread-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent); flex-shrink: 0;
+  }
+
+  .mail-subject {
+    font-size: 12px; color: var(--text-sub); margin-bottom: 4px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  }
+
+  .mail-time { font-size: 11px; color: var(--text-sub); opacity: 0.7; }
+
+  .empty-inbox, .no-email-selected {
+    flex: 1; display: flex; flex-direction: column; align-items: center;
+    justify-content: center; gap: 12px; color: var(--text-sub);
+    font-size: 13px; padding: 40px; text-align: center;
+  }
+  .empty-icon { font-size: 48px; opacity: 0.3; }
+
+  /* EMAIL VIEW */
+  .email-view-header {
+    padding: 24px 28px; border-bottom: 1px solid var(--border);
+    background: var(--bg-main); flex-shrink: 0;
+  }
+
+  .email-subject-title {
+    font-size: 18px; font-weight: 700; color: var(--text-main);
+    margin-bottom: 14px; line-height: 1.3;
+  }
+
+  .email-meta {
+    display: flex; flex-direction: column; gap: 6px;
+    font-size: 12px; color: var(--text-sub);
+  }
+
+  .email-meta span { display: flex; align-items: center; gap: 6px; }
+
+  .email-body {
+    flex: 1; background: var(--bg-sub); padding: 24px;
+    overflow-y: auto;
+  }
+
+  /* CÓDIGO DESTACADO */
+  .code-highlight {
+    background: var(--bg-main); border: 1px solid var(--border);
+    border-left: 3px solid var(--accent); border-radius: 8px;
+    padding: 16px 24px; margin: 16px 0;
+    font-family: monospace; font-size: 28px; font-weight: 700;
+    color: var(--accent); letter-spacing: 8px; text-align: center;
+  }
+
+  .verify-btn {
+    display: block; width: 100%; padding: 14px;
+    background: var(--accent); color: #000; border: none;
+    border-radius: 8px; font-weight: 700; font-size: 14px;
+    cursor: pointer; text-align: center; text-decoration: none;
+    margin-bottom: 10px; font-family: 'Inter', sans-serif;
+    transition: 0.2s;
+  }
+  .verify-btn:hover { background: var(--accent-dark); }
+
+  .email-text-body {
+    font-size: 14px; line-height: 1.8; color: var(--text-main);
+    white-space: pre-wrap; word-break: break-word;
+  }
+
+  /* REFRESH */
+  .refresh-btn {
+    background: transparent; border: none; color: var(--text-sub);
+    cursor: pointer; font-size: 12px; font-family: 'Inter', sans-serif;
+    display: flex; align-items: center; gap: 4px; transition: color 0.2s;
+    padding: 4px 8px; border-radius: 6px;
+  }
   .refresh-btn:hover { color: var(--accent-dark); }
-  .spinning { animation: spin 0.7s linear; }
+
   @keyframes spin { to { transform: rotate(360deg); } }
+  .spinning { animation: spin 0.6s linear; }
+
+  /* TOAST */
+  #toast {
+    position: fixed; bottom: 24px; right: 24px;
+    background: var(--bg-sub); border: 1px solid var(--accent);
+    border-radius: 10px; padding: 12px 20px;
+    font-size: 13px; color: var(--accent); z-index: 9999;
+    transform: translateY(60px); opacity: 0;
+    transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
+    box-shadow: 0 4px 20px rgba(0,240,255,0.15);
+  }
+  #toast.show { transform: translateY(0); opacity: 1; }
+
+  @media (max-width: 768px) {
+    #app.show { grid-template-columns: 1fr; }
+    nav { padding: 0 16px; }
+  }
 </style>
 </head>
-<body class="light-theme"> 
+<body>
 
 <nav>
-  <div class="logo"><div class="logo-icon">✉</div>BRMail.shop</div>
-  
+  <div class="logo">
+    <div class="logo-icon">✉</div>
+    BRMail<span style="color:var(--accent)">.shop</span>
+  </div>
   <div class="nav-utility">
     <button id="theme-toggle" class="theme-toggle" onclick="toggleTheme()">
-      <span id="theme-icon">🌙</span> <span id="theme-text">Dark Mode</span>
+      <span id="theme-icon">🌙</span>
+      <span id="theme-text">Dark Mode</span>
     </button>
-    <div class="status-dot"><div class="dot"></div>Sistema Blindado</div>
+    <div class="status-dot">
+      <div class="dot"></div>
+      Sistema Ativo
+    </div>
   </div>
 </nav>
 
+<!-- HERO -->
 <div id="hero-section">
-  <div class="badge">✦ E-mail temporário de alta reputação</div>
-  <h1>Controle de E-mails <span>Simplificado</span></h1>
-  <p class="subtitle">Acesse sua caixa de entrada profissional, separada por usuário e protegida por senha.</p>
-  
+  <div class="badge">✦ E-mail temporário — brmail.shop</div>
+  <h1>Caixa de entrada<br><span>inteligente</span></h1>
+  <p class="subtitle">Acesse seus e-mails temporários em <strong>brmail.shop</strong> com segurança e rapidez.</p>
+
   <div id="setup-card">
-    <div class="card-label">// Acesso Restrito</div>
-    <input type="email" id="email" placeholder="Seu e-mail (@brmail.shop)">
-    <input type="password" id="senha" placeholder="Sua Senha de Acesso">
-    <button class="btn" onclick="fazerLogin()">Entrar na Caixa de Entrada →</button>
+    <div class="card-label">// Acesso à caixa</div>
+    <input type="email" id="email" placeholder="seualias@brmail.shop" />
+    <input type="password" id="senha" placeholder="Senha de acesso" />
+    <button class="btn" onclick="fazerLogin()">Entrar na caixa de entrada →</button>
     <p id="msg-erro"></p>
   </div>
 </div>
 
+<!-- APP -->
 <div id="app">
   <div class="top-bar-clean">
-    <div class="email-badge" onclick="copyEmail()">
-      <span id="active-alias-text"></span> <span style="opacity: 0.5;">⎘</span>
+    <div class="email-badge" onclick="copyEmail()" title="Clique para copiar">
+      <span id="active-alias-text"></span>
+      <span style="opacity:0.5;font-size:12px">⎘</span>
     </div>
-    <button class="btn btn-danger btn-sm" onclick="resetApp()">✕ Sair</button>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-danger btn-sm" onclick="resetApp()">✕ Sair</button>
+    </div>
   </div>
 
+  <!-- INBOX -->
   <div class="inbox-panel">
     <div class="panel-header">
-      <div class="panel-title">E-mails Recebidos <span class="count-badge" id="mail-count">0</span></div>
-      <button class="refresh-btn" id="refresh-btn" onclick="fetchRealEmails(true)">⟳ atualizar</button>
+      <div class="panel-title">
+        📬 E-mails Recebidos
+        <span class="count-badge" id="mail-count">0</span>
+      </div>
+      <button class="refresh-btn" id="refresh-btn" onclick="fetchRealEmails(true)">
+        <span id="refresh-icon">⟳</span> atualizar
+      </button>
     </div>
     <div class="mail-list" id="mail-list">
       <div class="empty-inbox" id="empty-state">
         <div class="empty-icon">📭</div>
-        <div>Sua caixa está vazia.<br>Mande seu primeiro código para testar.</div>
+        <div>Nenhum e-mail ainda</div>
+        <div style="font-size:11px;opacity:0.6;margin-top:4px">Atualizando a cada 5 segundos</div>
       </div>
     </div>
   </div>
 
+  <!-- EMAIL VIEW -->
   <div class="email-view" id="email-view">
     <div class="no-email-selected" id="no-selection">
-      <div class="no-email-icon" style="font-size: 40px; opacity: 0.5; margin-bottom: 10px;">✉</div>
-      <div>Selecione um e-mail para visualizar o conteúdo.</div>
+      <div style="font-size:48px;opacity:0.2">✉</div>
+      <div>Selecione um e-mail para ler</div>
     </div>
   </div>
 </div>
 
+<div id="toast"></div>
+
 <script>
-  // SEU LINK DA CLOUDFLARE
   const WORKER_URL = 'https://recebedor-brmail.klevi8129.workers.dev';
-  
-  let credenciais = { email: "", senha: "" };
+
+  let credenciais = { email: '', senha: '' };
   let emailsState = [];
   let selectedEmailId = null;
+  let pollingTimer = null;
 
-  const themeToggle = document.getElementById('theme-toggle');
-  const themeIcon = document.getElementById('theme-icon');
-  const themeText = document.getElementById('theme-text');
-  const body = document.body;
-
+  // TEMA
   const savedTheme = localStorage.getItem('brmail_theme') || 'light';
   applyTheme(savedTheme);
 
   function toggleTheme() {
-    const currentTheme = body.classList.contains('dark-theme') ? 'dark' : 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    applyTheme(newTheme);
+    const current = document.body.classList.contains('dark-theme') ? 'dark' : 'light';
+    applyTheme(current === 'light' ? 'dark' : 'light');
   }
 
   function applyTheme(theme) {
+    const body = document.body;
     if (theme === 'dark') {
       body.classList.add('dark-theme');
       body.classList.remove('light-theme');
-      themeIcon.innerText = '☀️';
-      themeText.innerText = 'Light Mode';
+      document.getElementById('theme-icon').innerText = '☀️';
+      document.getElementById('theme-text').innerText = 'Light Mode';
     } else {
       body.classList.add('light-theme');
       body.classList.remove('dark-theme');
-      themeIcon.innerText = '🌙';
-      themeText.innerText = 'Dark Mode';
+      document.getElementById('theme-icon').innerText = '🌙';
+      document.getElementById('theme-text').innerText = 'Dark Mode';
     }
     localStorage.setItem('brmail_theme', theme);
   }
 
+  // LOGIN
   async function fazerLogin() {
     const email = document.getElementById('email').value.trim().toLowerCase();
     const senha = document.getElementById('senha').value.trim();
     const erroMsg = document.getElementById('msg-erro');
+    const btn = document.querySelector('#hero-section .btn');
 
-    if(!email || !senha) { erroMsg.innerText = "Preencha todos os campos."; erroMsg.style.display = "block"; return; }
-    erroMsg.style.display = "none";
-    document.querySelector('.btn').innerText = "Verificando...";
+    if (!email || !senha) {
+      erroMsg.innerText = 'Preencha todos os campos.';
+      erroMsg.style.display = 'block';
+      return;
+    }
+
+    erroMsg.style.display = 'none';
+    btn.innerText = 'Verificando...';
+    btn.disabled = true;
 
     try {
-      const resposta = await fetch(WORKER_URL + '/api/ler', {
+      const res = await fetch(WORKER_URL + '/api/ler', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: email, senha: senha })
+        body: JSON.stringify({ email, senha })
       });
 
-      if (resposta.status === 401) { erroMsg.innerText = "E-mail ou senha incorretos!"; erroMsg.style.display = "block"; document.querySelector('.btn').innerText = "Entrar na Caixa de Entrada →"; return; }
+      if (res.status === 401) {
+        erroMsg.innerText = 'E-mail ou senha incorretos!';
+        erroMsg.style.display = 'block';
+        btn.innerText = 'Entrar na caixa de entrada →';
+        btn.disabled = false;
+        return;
+      }
 
       credenciais = { email, senha };
       document.getElementById('hero-section').style.display = 'none';
       document.getElementById('app').classList.add('show');
       document.getElementById('active-alias-text').textContent = email;
-      
-      emailsState = await resposta.json();
+
+      emailsState = await res.json();
       renderMailList();
-      setInterval(fetchRealEmails, 5000); 
-    } catch (e) { erroMsg.innerText = "Erro ao conectar com o servidor."; erroMsg.style.display = "block"; }
+      startPolling();
+
+    } catch (e) {
+      erroMsg.innerText = 'Erro ao conectar com o servidor.';
+      erroMsg.style.display = 'block';
+      btn.innerText = 'Entrar na caixa de entrada →';
+      btn.disabled = false;
+    }
+  }
+
+  function startPolling() {
+    if (pollingTimer) clearInterval(pollingTimer);
+    pollingTimer = setInterval(() => fetchRealEmails(false), 5000);
   }
 
   async function fetchRealEmails(manual = false) {
-    if(manual) document.getElementById('refresh-btn').classList.add('spinning');
+    if (manual) document.getElementById('refresh-icon').classList.add('spinning');
     try {
-      const resposta = await fetch(WORKER_URL + '/api/ler', {
+      const res = await fetch(WORKER_URL + '/api/ler', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(credenciais)
       });
-      emailsState = await resposta.json();
+      const novos = await res.json();
+
+      // Verifica se chegou e-mail novo
+      if (novos.length > emailsState.length) {
+        showToast('📨 Novo e-mail recebido!');
+      }
+
+      emailsState = novos;
       renderMailList();
     } catch (e) {}
-    if(manual) setTimeout(() => document.getElementById('refresh-btn').classList.remove('spinning'), 500);
+    if (manual) setTimeout(() => document.getElementById('refresh-icon').classList.remove('spinning'), 500);
   }
 
   function renderMailList() {
     const list = document.getElementById('mail-list');
     document.getElementById('mail-count').textContent = emailsState.length;
-    if (emailsState.length === 0) { list.innerHTML = ''; list.appendChild(document.getElementById('empty-state')); document.getElementById('empty-state').style.display = 'flex'; return; }
+
+    if (emailsState.length === 0) {
+      list.innerHTML = '';
+      const empty = document.createElement('div');
+      empty.className = 'empty-inbox';
+      empty.innerHTML = '<div class="empty-icon">📭</div><div>Nenhum e-mail ainda</div><div style="font-size:11px;opacity:0.6;margin-top:4px">Atualizando a cada 5 segundos</div>';
+      list.appendChild(empty);
+      return;
+    }
+
     list.innerHTML = '';
     emailsState.forEach(email => {
       const d = document.createElement('div');
       d.className = 'mail-item' + (selectedEmailId === email.id ? ' active' : '');
       const t = new Date(email.time);
-      d.innerHTML = `<div class="mail-from">${escHtml(email.from)}</div><div class="mail-subject">${escHtml(email.subject)}</div><div style="font-size:11px;color:var(--text-sub)">${t.toLocaleTimeString('pt-BR')}</div>`;
+      const timeStr = t.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+
+      // CORREÇÃO: limpa subject de headers brutos
+      const cleanSubject = cleanHeader(email.subject);
+      const cleanFrom = cleanHeader(email.from);
+
+      d.innerHTML = `
+        <div class="mail-from">${esc(cleanFrom)}</div>
+        <div class="mail-subject">${esc(cleanSubject)}</div>
+        <div class="mail-time">${timeStr}</div>
+      `;
       d.onclick = () => selectEmail(email.id);
       list.appendChild(d);
     });
   }
 
   function selectEmail(id) {
-    selectedEmailId = id; renderMailList();
+    selectedEmailId = id;
+    renderMailList();
+
     const email = emailsState.find(e => e.id === id);
+    if (!email) return;
+
     const view = document.getElementById('email-view');
-    
+
+    // CORREÇÃO: limpa headers brutos do subject e from
+    const cleanSubject = cleanHeader(email.subject);
+    const cleanFrom = cleanHeader(email.from);
+    const cleanTo = cleanHeader(email.to);
+
+    // Extrai código numérico do corpo
+    const bodyText = email.text || '';
+    const codeMatch = bodyText.match(/\b(\d{4,8})\b/);
+    const code = codeMatch ? codeMatch[1] : null;
+
+    // Extrai links de verificação
+    const links = [];
+    const linkRegex = /https?:\/\/[^\s"<>]+/g;
+    const allText = (email.html || '') + bodyText;
+    let m;
+    while ((m = linkRegex.exec(allText)) !== null) {
+      if (!links.includes(m[0]) && links.length < 3) links.push(m[0]);
+    }
+
     view.innerHTML = `
       <div class="email-view-header">
-        <div class="email-subject-title">${escHtml(email.subject)}</div>
+        <div class="email-subject-title">${esc(cleanSubject)}</div>
         <div class="email-meta">
-          <span>De: <strong style="color:var(--text-main)">${escHtml(email.from)}</strong></span>
-          <span>Para: <strong style="color:var(--accent-dark)">${escHtml(email.to)}</strong></span>
-          <span>Recebido às: ${new Date(email.time).toLocaleString('pt-BR')}</span>
+          <span>✉ De: <strong style="color:var(--text-main)">${esc(cleanFrom)}</strong></span>
+          <span>→ Para: <strong style="color:var(--accent-dark)">${esc(cleanTo)}</strong></span>
+          <span>🕐 ${new Date(email.time).toLocaleString('pt-BR')}</span>
         </div>
       </div>
       <div class="email-body">
-        <iframe id="mail-iframe" title="Conteúdo do E-mail"></iframe>
+        ${code ? `
+          <div style="font-size:13px;color:var(--text-sub);margin-bottom:8px">Código detectado:</div>
+          <div class="code-highlight">${esc(code)}</div>
+        ` : ''}
+        ${links.length > 0 ? `
+          <div style="font-size:13px;color:var(--text-sub);margin:16px 0 8px">Links encontrados:</div>
+          ${links.map(l => `<a href="${esc(l)}" target="_blank" class="verify-btn">🔗 Abrir link de verificação</a>`).join('')}
+        ` : ''}
+        <div class="email-text-body" style="margin-top:${code || links.length > 0 ? '20px' : '0'}">${esc(cleanBody(bodyText))}</div>
       </div>
     `;
-
-    const iframe = document.getElementById('mail-iframe');
-    iframe.contentWindow.document.open();
-    iframe.contentWindow.document.write(email.html || `<pre style="padding:20px; color:var(--text-main); font-family: sans-serif;">${escHtml(email.text)}</pre>`);
-    iframe.contentWindow.document.close();
   }
 
-  function copyEmail() { navigator.clipboard.writeText(credenciais.email); }
-  function resetApp() { location.reload(); }
-  function escHtml(str) { return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  // ─── FUNÇÕES DE LIMPEZA ────────────────────────
+  function cleanHeader(str) {
+    if (!str) return '';
+    str = String(str);
+
+    // Remove prefixo "Subject:", "From:", etc se vier no valor
+    str = str.replace(/^(Subject|From|To|Date|Mime-Version|Content-Type|Sender|Reply-To):\s*/gi, '');
+
+    // Remove múltiplos headers colados (Subject: X Date: Y → pega só X)
+    const headerPattern = /\s+(Mime-Version|Date|Sender|From|To|Subject|Content-Type|Reply-To):.*/i;
+    str = str.replace(headerPattern, '');
+
+    return str.trim();
+  }
+
+  function cleanBody(text) {
+    if (!text) return '';
+    // Remove cabeçalhos MIME do corpo
+    text = text.replace(/^(MIME-Version|Content-Type|Content-Transfer-Encoding|Received|Message-ID|Date|From|To|Subject|Reply-To|Sender):[^\n]*/gim, '');
+    // Remove linhas em branco excessivas
+    text = text.replace(/\n{3,}/g, '\n\n');
+    return text.trim();
+  }
+
+  function copyEmail() {
+    navigator.clipboard.writeText(credenciais.email)
+      .then(() => showToast('✓ E-mail copiado!'));
+  }
+
+  function resetApp() {
+    clearInterval(pollingTimer);
+    location.reload();
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.innerText = msg;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2500);
+  }
+
+  function esc(str) {
+    return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // ENTER para login
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('hero-section').style.display !== 'none') {
+      fazerLogin();
+    }
+  });
 </script>
 </body>
 </html>
