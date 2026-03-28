@@ -7,48 +7,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  
- 
+
   :root {
-   
-    --bg-main: #FFFFFF; 
-    --bg-sub: #F9FAFB; 
-    --border: #E5E7EB; 
-    --text-main: #111827; 
-    --text-sub: #6B7280; 
-    --accent: #00f0ff; 
-    --accent-dark: #00c9d6; 
-    --error: #EF4444;
+    /* Cores Padrão: Clean/Branco */
+    --bg-main: #FFFFFF; /* Fundo Principal Totalmente Branco */
+    --bg-sub: #F9FAFB; /* Fundo Secundário muito leve */
+    --border: #E5E7EB; /* Bordas Cinzas e sutis */
+    --text-main: #111827; /* Texto Escuro/Quase Preto */
+    --text-sub: #6B7280; /* Texto Cinza/Muted */
+    --accent: #00f0ff; /* Azul Celeste Profissional (manteremos o celeste) */
+    --accent-dark: #00c9d6; /* Azul mais escuro para hover */
+    --error: #EF4444; /* Vermelho para erro */
     
-    --inbox-width: 300px; 
+    --inbox-width: 300px; /* Largura da caixa de entrada lateral */
   }
 
-
+  /* CLASSE PARA O TEMA ESCURO (Dark Mode) */
   .dark-theme {
-    
-    --bg-main: #0A0F14; 
-    --bg-sub: #111820; 
-    --border: #1C2333;
-    --text-main: #F3F4F6; 
-    --text-sub: #9CA3AF; 
-    --accent: #00f0ff; 
-    --accent-dark: #00c9d6; 
+    /* Cores Escuras (Inspirado no GitHub/Vercel Dark) */
+    --bg-main: #0A0F14; /* Fundo Principal quase preto */
+    --bg-sub: #111820; /* Fundo Secundário levemente mais claro */
+    --border: #1C2333; /* Bordas Cinzas muito escuras */
+    --text-main: #F3F4F6; /* Texto quase Branco */
+    --text-sub: #9CA3AF; /* Texto Cinza Claro/Muted */
+    --accent: #00f0ff; /* Celeste brilha mais no escuro */
+    --accent-dark: #00c9d6; /* Azul Celeste mais profundo */
   }
 
   body { font-family: 'Inter', sans-serif; background: var(--bg-main); color: var(--text-main); -webkit-font-smoothing: antialiased; transition: background-color 0.3s ease, color 0.3s ease; }
 
- 
+  /* CABEÇALHO CLEAN */
   nav { display: flex; align-items: center; justify-content: space-between; padding: 0 40px; height: 70px; background: var(--bg-main); border-bottom: 1px solid var(--border); }
   .logo { font-weight: 700; font-size: 20px; color: var(--text-main); display: flex; align-items: center; gap: 8px; }
   .logo-icon { width: 30px; height: 30px; background: var(--accent); color: #000; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
   
- .nav-utility { display: flex; align-items: center; gap: 16px; }
+  /* ÁREA UTILITY DO NAV (Tema e Status) */
+  .nav-utility { display: flex; align-items: center; gap: 16px; }
   .theme-toggle { background: transparent; border: 1px solid var(--border); color: var(--text-main); font-size: 14px; padding: 6px 14px; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 6px; font-weight: 500; }
   .theme-toggle:hover { background: var(--bg-sub); }
   .status-dot { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-sub); }
   .dot { width: 7px; height: 7px; border-radius: 50%; background: #10B981; } /* Ponto verde mais discreto */
 
- 
+  /* TELA DE LOGIN MINIMALISTA */
   #hero-section { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 80vh; text-align: center; padding: 40px 20px; }
   .badge { display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.05); border-radius: 100px; padding: 6px 16px; font-size: 12px; font-weight: 500; color: var(--text-main); margin-bottom: 24px; }
   h1 { font-size: clamp(30px, 5vw, 48px); font-weight: 800; line-height: 1.1; letter-spacing: -1.5px; margin-bottom: 16px; color: var(--text-main); }
@@ -66,12 +66,13 @@
   .btn-danger:hover { background: #FEE2E2; }
   #msg-erro { color: var(--error); font-size: 13px; margin-top: 12px; display: none; }
 
- 
+  /* PAINEL APÓS O LOGIN - CLEAN GRID */
   #app { display: none; max-width: 1200px; margin: 40px auto; padding: 0 20px; gap: 24px; }
   #app.show { display: grid; grid-template-columns: var(--inbox-width) 1fr; }
   .top-bar-clean { grid-column: 1 / -1; display: flex; align-items: center; justify-content: space-between; border: 1px solid var(--border); border-radius: 12px; padding: 20px 24px; margin-bottom: 24px; background: var(--bg-main); }
   .email-badge { background: var(--bg-sub); border: 1px solid var(--border); border-radius: 6px; padding: 10px 16px; font-size: 14px; color: var(--text-main); display: flex; align-items: center; gap: 8px; cursor: pointer; }
 
+  /* LAYOUT DA CAIXA - BRANCO */
   .inbox-panel, .email-view { background: var(--bg-main); border: 1px solid var(--border); border-radius: 12px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02); }
   .panel-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
   .panel-title { font-size: 14px; font-weight: 600; color: var(--text-main); }
@@ -85,21 +86,21 @@
   .empty-inbox, .no-email-selected { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: var(--text-sub); font-size: 13px; padding: 60px; text-align: center; }
   .empty-icon { font-size: 48px; }
 
- 
+  /* VISUALIZADOR - SEM CÓDIGO APARENTE */
   .email-view-header { padding: 24px 30px; border-bottom: 1px solid var(--border); }
   .email-subject-title { font-size: 20px; font-weight: 700; color: var(--text-main); margin-bottom: 14px; }
   .email-meta { display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: var(--text-sub); }
-  .email-body { flex: 1; background: #fff; padding: 30px; overflow-y: auto; }
-  #mail-iframe { width: 100%; height: 100%; min-height: 500px; border: none; }
+  .email-body { flex: 1; background: var(--bg-sub); padding: 30px; overflow-y: auto; border: 1px solid var(--border); } /* CONSERTO AQUI */
+  #mail-iframe { width: 100%; height: 100%; min-height: 500px; border: none; background: transparent; } /* CONSERTO AQUI */
 
-
+  /* REFRESH */
   .refresh-btn { background: transparent; border: none; color: var(--text-sub); cursor: pointer; font-size: 13px; }
   .refresh-btn:hover { color: var(--accent-dark); }
   .spinning { animation: spin 0.7s linear; }
   @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
-<body class="light-theme"> <nav>
+<body class="light-theme light-theme-setup"> <nav>
   <div class="logo"><div class="logo-icon">✉</div>BRMail.shop</div>
   
   <div class="nav-utility">
@@ -133,34 +134,37 @@
     <button class="btn btn-danger btn-sm" onclick="resetApp()">✕ Sair</button>
   </div>
 
-  <div class="inbox-panel">
-    <div class="panel-header">
-      <div class="panel-title">E-mails Recebidos <span class="count-badge" id="mail-count">0</span></div>
-      <button class="refresh-btn" id="refresh-btn" onclick="fetchRealEmails(true)">⟳ atualizar</button>
-    </div>
-    <div class="mail-list" id="mail-list">
-      <div class="empty-inbox" id="empty-state">
-        <div class="empty-icon">📭</div>
-        <div>Sua caixa está vazia.<br>Mande seu primeiro código para testar.</div>
+  <div class="mail-layout">
+    <div class="inbox-panel">
+      <div class="panel-header">
+        <div class="panel-title">📬 Caixa de entrada <span class="count-badge" id="mail-count">0</span></div>
+        <button class="refresh-btn" id="refresh-btn" onclick="fetchRealEmails(true)">⟳ atualizar</button>
+      </div>
+      <div class="mail-list" id="mail-list">
+        <div class="empty-inbox" id="empty-state">
+          <div class="empty-icon">📭</div>
+          <div>Aguardando códigos chegarem...</div>
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="email-view" id="email-view">
-    <div class="no-email-selected" id="no-selection">
-      <div class="no-email-icon">✉</div>
-      <div>Selecione um e-mail para visualizar o visual completo e links.</div>
+    <div class="email-view" id="email-view">
+      <div class="no-email-selected" id="no-selection">
+        <div class="no-email-icon">✉</div>
+        <div>Selecione um e-mail para visualizar</div>
+      </div>
     </div>
   </div>
 </div>
 
 <script>
+  // COLOQUE O LINK DO SEU MOTOR NA CLOUDFLARE AQUI!
   const WORKER_URL = 'https://recebedor-brmail.klevi8129.workers.dev';
   
   let credenciais = { email: "", senha: "" };
   let emailsState = [];
   let selectedEmailId = null;
-  
+
   const themeToggle = document.getElementById('theme-toggle');
   const themeIcon = document.getElementById('theme-icon');
   const themeText = document.getElementById('theme-text');
@@ -188,9 +192,9 @@
       themeIcon.innerText = '🌙';
       themeText.innerText = 'Dark Mode';
     }
+    // Salva a escolha para a próxima vez
     localStorage.setItem('brmail_theme', theme);
   }
- 
   async function fazerLogin() {
     const email = document.getElementById('email').value.trim().toLowerCase();
     const senha = document.getElementById('senha').value.trim();
@@ -270,6 +274,7 @@
 
     const iframe = document.getElementById('mail-iframe');
     iframe.contentWindow.document.open();
+   
     iframe.contentWindow.document.write(email.html || `<pre style="padding:20px; color:#333;">${escHtml(email.text)}</pre>`);
     iframe.contentWindow.document.close();
   }
