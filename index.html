@@ -148,7 +148,7 @@
 <div id="toast"></div>
 
 <script>
-  // ESTE É O LINK DO SEU MOTOR REAL!
+  
   const WORKER_URL = 'https://recebedor-brmail.klevi8129.workers.dev/';
   const DOMAIN = '@brmail.shop';
   
@@ -186,14 +186,14 @@
     document.getElementById('app').classList.add('show');
     document.getElementById('active-alias-text').textContent = state.activeAlias;
     renderAliases();
-    fetchRealEmails(); // Busca os emails reais assim que entra
+    fetchRealEmails(); 
   }
 
   function copyEmail() {
     navigator.clipboard.writeText(state.activeAlias).then(() => showToast('Copiado!'));
   }
 
-  // BUSCA OS E-MAILS DE VERDADE NO SEU BANCO DE DADOS DA CLOUDFLARE
+  
   async function fetchRealEmails(manual = false) {
     if(manual) document.getElementById('refresh-btn').classList.add('spinning');
     
@@ -201,7 +201,7 @@
       const res = await fetch(WORKER_URL);
       const todosEmailsServidor = await res.json();
       
-      // Filtra para mostrar apenas os emails enviados para os endereços que você criou na tela
+     
       const meusEnderecos = [state.activeAlias, ...state.aliases].map(a => a.toLowerCase());
       
       const meusEmails = todosEmailsServidor.filter(email => {
